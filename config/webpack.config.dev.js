@@ -30,9 +30,7 @@ module.exports = merge(common, {
           {
             loader: "file-loader",
             options: {
-              name: "[path][name].[ext]",
-              outputPath: "/",
-              publicPath: "http://localhost:5000/"
+              name: "[path][name].[ext]"
             }
           }
         ]
