@@ -7,7 +7,7 @@ interface Props {
   tags: string[];
 }
 
-export const WorkCard: FC<Props> = ({ coverUrl, creatorId, tags }) => {
+export const WorkCard: FC<Props> = ({ coverUrl, tags }) => {
   return (
     <Wrapper>
       <Img src={coverUrl}></Img>

@@ -28,7 +28,7 @@ module.exports = merge(common, {
             options: {
               name: "[path][name]-[hash].[ext]",
               outputPath: "/",
-              publicPath: "../dist"
+              publicPath: "/"
             }
           }
         ]
