@@ -4,11 +4,24 @@ import { GlobalStyle } from "@/theme/GlobalStyle";
 import { createRouter } from "@/routes";
 import { TopPage } from "@/pages/TopPage";
 
-const routes = [
+export const routes = [
   {
     exact: true,
     path: "/",
-    component: TopPage
+    component: TopPage,
+    name: "ホーム"
+  },
+  {
+    exact: true,
+    path: "/works",
+    component: TopPage,
+    name: "作品集"
+  },
+  {
+    exact: true,
+    path: "/creators",
+    component: TopPage,
+    name: "クリエイター"
   }
 ];
 
