@@ -80,7 +80,6 @@ const LogoArea = styled(Link)`
 const Logo = styled.img`
   height: ${height};
   width: ${height};
-  transform: scale(1.2);
 `;
 
 const BrandText = styled.div`

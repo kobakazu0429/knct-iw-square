@@ -3,25 +3,27 @@ import { ThemeProvider } from "@/theme/ThemeProvider";
 import { GlobalStyle } from "@/theme/GlobalStyle";
 import { createRouter } from "@/routes";
 import { TopPage } from "@/pages/TopPage";
+import { WorksPage } from "@/pages/WorksPage";
+import { CreatorsPage } from "@/pages/CreatorsPage";
 
 export const routes = [
   {
     exact: true,
     path: "/",
     component: TopPage,
-    name: "ホーム"
+    name: "Top"
   },
   {
     exact: true,
     path: "/works",
-    component: TopPage,
-    name: "作品集"
+    component: WorksPage,
+    name: "Works"
   },
   {
     exact: true,
     path: "/creators",
-    component: TopPage,
-    name: "クリエイター"
+    component: CreatorsPage,
+    name: "Creators"
   }
 ];
 
