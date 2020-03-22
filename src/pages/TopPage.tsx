@@ -1,6 +1,7 @@
 import React, { FC } from "react";
 import styled from "styled-components";
 import { Header } from "@/layouts/Header";
+import safeIsFirst from "@/assets/images/safe-is-first.jpg";
 
 export const TopPage: FC = () => {
   return (
@@ -8,7 +9,7 @@ export const TopPage: FC = () => {
       <Header />
       <Container>
         <HeroArea>
-          <HeroImg src="https://lh3.googleusercontent.com/faMdVCQ3IT0r9gmblI4rfMP5p7ic6dNmrI-U0pRjxjXLGkrvqHvXywdSX5Bu2pclWp1VztTQ=w16383" />
+          <HeroImg src={safeIsFirst} />
         </HeroArea>
       </Container>
     </>
