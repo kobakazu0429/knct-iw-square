@@ -105,8 +105,9 @@ export const WorksPage: FC = () => {
         ))}
       </Controller>
       <Container>
-        {data.map(({ productImage, creator, tags }) => (
+        {data.map(({ productImage, creator, tags, title }) => (
           <WorkCard
+            title={title}
             productImage={productImage}
             creator={creator}
             tags={tags}

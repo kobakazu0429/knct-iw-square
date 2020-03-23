@@ -5,16 +5,18 @@ import { Tag } from "./Tag";
 interface Props {
   productImage: string;
   // creatorId: number;
-  // title: string;
+  title: string;
   creator: string;
   tags: string[];
 }
 
-export const WorkCard: FC<Props> = ({ productImage, creator, tags }) => {
+export const WorkCard: FC<Props> = ({ productImage, title, creator, tags }) => {
   return (
     <Wrapper>
       <Img src={productImage}></Img>
       <Content>
+        <CreatorName>{title}</CreatorName>
+        <br />
         <CreatorName>{creator}</CreatorName>
         <br />
         {tags.map(tag => (
@@ -43,7 +45,7 @@ const Img = styled.img`
 
 const Content = styled.div`
   padding: 20px;
-  height: 120px;
+  min-height: 120px;
 `;
 
 // .card-title {
