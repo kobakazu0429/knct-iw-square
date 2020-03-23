@@ -118,6 +118,8 @@ const StyledMenu = styled.div`
   width: ${height};
   line-height: ${height};
   font-size: 30px;
+  padding: 15px;
+  padding-top: 5px;
 `;
 
 const FullScreen = styled.div`
