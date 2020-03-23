@@ -18,7 +18,7 @@ export const WorkCard: FC<Props> = ({ productImage, creator, tags }) => {
         <CreatorName>{creator}</CreatorName>
         <br />
         {tags.map(tag => (
-          <Tag tag={tag} />
+          <Tag tag={tag} key={tag} />
         ))}
       </Content>
     </Wrapper>

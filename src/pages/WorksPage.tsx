@@ -1,28 +1,111 @@
-import React, { FC } from "react";
+import React, { FC, useState, useContext, useEffect, useCallback } from "react";
+import { useHistory } from "react-router-dom";
 import styled from "styled-components";
+import { AlgoliaContext } from "@/contexts/AlgoliaContext";
+import { useQuery } from "@/utils/useQuery";
 import { Header } from "@/layouts/Header";
-
 import { WorkCard } from "@/components/WorkCard";
+import { TextField } from "@/components/TextField";
+import { Tag } from "@/components/Tag";
 import works from "@/assets/images/works.jpg";
 
-const tags = ["Fusion360", "3Dプリンター", "レーザーカッター", "基盤加工機"];
+interface WorksResponse {
+  productImage: string;
+  tags: string[];
+  title: string;
+  creator: string;
+}
 
-const contents = [...Array(10).keys()].map(i => ({
-  coverUrl: `https://picsum.photos/200?random=${i}`,
-  creatorId: i,
-  tags
-}));
+interface SearchOptions {
+  q?: string;
+  t?: string;
+}
+
+const queryTagNormalizer = (prevTag: string | null) =>
+  prevTag ? prevTag : undefined;
+const queryQNormalizer = (prevQ: string | null) => (prevQ ? prevQ : "");
 
 export const WorksPage: FC = () => {
+  const history = useHistory();
+  const query = useQuery();
+  const queryTag = query.get("tag");
+  const queryQ = query.get("q");
+
+  const { worksIndex } = useContext(AlgoliaContext);
+
+  const [data, setData] = useState<any[]>([]);
+  const [allTags, setAllTags] = useState<any[]>([]);
+  const [searchWord, setSearchWord] = useState<string>("");
+
+  const getAllTags = useCallback(() => {
+    worksIndex.search<WorksResponse>("").then(res => {
+      const uniqueTags = Array.from(
+        new Set(res.hits.map(({ tags }) => tags).flat())
+      );
+      setAllTags(uniqueTags);
+    });
+  }, [worksIndex, allTags]);
+
+  const searchWorks = useCallback(
+    ({ q = "", t }: SearchOptions = {}) => {
+      const options: any = {};
+      if (t) options.facetFilters = [`tags:${t}`];
+      worksIndex.search<WorksResponse>(q, options).then(res => {
+        setData([...res.hits]);
+        const newQuery = [];
+        if (q !== "") newQuery.push(`q=${q}`);
+        if (t) newQuery.push(`tag=${t}`);
+        history.push(`/works?${newQuery.join("&")}`);
+      });
+    },
+    [worksIndex]
+  );
+
+  // init
+  useEffect(() => {
+    getAllTags();
+
+    if (queryQ) setSearchWord(queryQNormalizer(queryQ));
+    searchWorks({
+      q: queryQNormalizer(queryQ),
+      t: queryTagNormalizer(queryTag)
+    });
+  }, []);
+
+  useEffect(() => {
+    searchWorks({
+      q: queryQNormalizer(searchWord),
+      t: queryTagNormalizer(queryTag)
+    });
+  }, [searchWord, queryTag]);
+
+  const getAllWorks = useCallback(() => {
+    setSearchWord("");
+    history.push(`/works`);
+  }, []);
+
   return (
     <>
       <Header />
       <HeroArea>
         <h1>Works</h1>
       </HeroArea>
+      <Controller>
+        <TextField onChange={setSearchWord} value={searchWord} />
+        <button onClick={getAllWorks}>全件表示</button>
+        {allTags.map(tag => (
+          <Tag tag={tag} key={tag} />
+        ))}
+      </Controller>
+
       <Container>
-        {contents.map(v => (
-          <WorkCard {...v} />
+        {data.map(({ productImage, creator, tags }) => (
+          <WorkCard
+            productImage={productImage}
+            creator={creator}
+            tags={tags}
+            key={productImage}
+          />
         ))}
       </Container>
     </>
@@ -45,4 +128,8 @@ const HeroArea = styled.div`
     color: #fff;
     text-shadow: 2px 4px 3px rgba(0, 0, 0, 0.5);
   }
+`;
+
+const Controller = styled.div`
+  padding: 20px;
 `;
