@@ -14,11 +14,9 @@ export const Creator: FC<Props> = ({ avatorUrl, name, skills }) => {
       <Avator src={avatorUrl} />
       <Content>
         <Line>{name}</Line>
-        {skills
-          .slice(0, Math.round(Math.random() * 10) % skills.length)
-          .map(v => (
-            <Skill>#{v}</Skill>
-          ))}
+        {skills.map(skill => (
+          <Skill key={skill}>{skill}</Skill>
+        ))}
       </Content>
     </Wrapper>
   );
@@ -45,7 +43,10 @@ const Line = styled.div``;
 
 const Skill = styled.span`
   color: rgb(239, 120, 116);
-
   margin: 0 5px;
   word-break: break-word;
+
+  &::before {
+    content: "#";
+  }
 `;

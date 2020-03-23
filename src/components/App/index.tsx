@@ -39,11 +39,12 @@ export const App: FC = () => {
   );
 
   const worksIndex = client.initIndex("works");
+  const creatorsIndex = client.initIndex("creators");
 
   return (
     <ThemeProvider themeName="default">
       <GlobalStyle />
-      <AlgoliaContextProvider value={{ worksIndex }}>
+      <AlgoliaContextProvider value={{ worksIndex, creatorsIndex }}>
         {Router}
       </AlgoliaContextProvider>
     </ThemeProvider>
