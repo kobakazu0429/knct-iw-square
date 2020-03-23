@@ -93,7 +93,9 @@ export const WorksPage: FC = () => {
       <HeroArea text="Works" backgroundImage={works} />
 
       <Controller>
-        <SearchLabel>検索</SearchLabel>
+        <DefaultDesign>
+          <SearchLabel>検索</SearchLabel>
+        </DefaultDesign>
         <TextField
           onChange={setSearchWord}
           value={searchWord}
@@ -101,10 +103,12 @@ export const WorksPage: FC = () => {
         />
         <Divider />
         <AllButton onClick={getAllWorks}>全件表示</AllButton>
-        <Divider />
-        {allTags.map(tag => (
-          <Tag tag={tag} key={tag} />
-        ))}
+        <DefaultDesign>
+          <Divider />
+          {allTags.map(tag => (
+            <Tag tag={tag} key={tag} />
+          ))}
+        </DefaultDesign>
       </Controller>
       <Container>
         <DefaultDesign>
