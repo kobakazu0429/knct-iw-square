@@ -4,16 +4,17 @@ import styled from "styled-components";
 interface Props {
   value: string;
   onChange: any;
+  maxWidth?: string;
 }
 
-export const TextField: FC<Props> = ({ onChange, value }) => {
+export const TextField: FC<Props> = ({ onChange, value, maxWidth }) => {
   const changeValue = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     const newValue = e.target.value;
     if (onChange) onChange(newValue);
   }, []);
 
   return (
-    <Wrapper>
+    <Wrapper style={{ maxWidth }}>
       <Input type="text" onChange={changeValue} value={value} />
     </Wrapper>
   );

@@ -91,13 +91,19 @@ export const WorksPage: FC = () => {
         <h1>Works</h1>
       </HeroArea>
       <Controller>
-        <TextField onChange={setSearchWord} value={searchWord} />
-        <button onClick={getAllWorks}>全件表示</button>
+        <SearchLabel>検索</SearchLabel>
+        <TextField
+          onChange={setSearchWord}
+          value={searchWord}
+          maxWidth="200px"
+        />
+        <Divider />
+        <AllButton onClick={getAllWorks}>全件表示</AllButton>
+        <Divider />
         {allTags.map(tag => (
           <Tag tag={tag} key={tag} />
         ))}
       </Controller>
-
       <Container>
         {data.map(({ productImage, creator, tags }) => (
           <WorkCard
@@ -132,4 +138,36 @@ const HeroArea = styled.div`
 
 const Controller = styled.div`
   padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const SearchLabel = styled.div`
+  width: 60px;
+  margin-right: -15px;
+`;
+
+const Divider = styled.div`
+  width: 1px;
+  height: 20px;
+  margin: 0 20px;
+  background: ${({ theme }) => theme.color.divider};
+`;
+
+const AllButton = styled.button`
+  position: relative;
+  display: inline-block;
+  padding: 0.25em 0;
+  text-decoration: none;
+
+  &::before {
+    position: absolute;
+    content: "";
+    width: 100%;
+    height: 1px;
+    top: 100%;
+    left: 0;
+    background: ${({ theme }) => theme.color.text.primary};
+  }
 `;
