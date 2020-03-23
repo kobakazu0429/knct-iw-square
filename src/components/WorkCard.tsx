@@ -1,23 +1,24 @@
 import React, { FC } from "react";
 import styled from "styled-components";
+import { Tag } from "./Tag";
 
 interface Props {
-  coverUrl: string;
-  creatorId: number;
+  productImage: string;
+  // creatorId: number;
+  // title: string;
+  creator: string;
   tags: string[];
 }
 
-export const WorkCard: FC<Props> = ({ coverUrl, tags }) => {
+export const WorkCard: FC<Props> = ({ productImage, creator, tags }) => {
   return (
     <Wrapper>
-      <Img src={coverUrl}></Img>
+      <Img src={productImage}></Img>
       <Content>
-        <CreatorName>
-          {["はた なおき", "元木"][Math.round(Math.random() * 10) % 2]}
-        </CreatorName>
+        <CreatorName>{creator}</CreatorName>
         <br />
-        {tags.slice(0, Math.round(Math.random() * 10) % tags.length).map(v => (
-          <Tag>#{v}</Tag>
+        {tags.map(tag => (
+          <Tag tag={tag} />
         ))}
       </Content>
     </Wrapper>
@@ -27,7 +28,6 @@ export const WorkCard: FC<Props> = ({ coverUrl, tags }) => {
 const Wrapper = styled.div`
   margin: 30px;
   width: 200px;
-  /* min-height: 300px; */
   background: #fff;
   border-radius: 5px;
   box-shadow: 0 2px 5px #ccc;
@@ -70,11 +70,5 @@ const Content = styled.div`
 // .card-link a:hover {
 //   color: #0090aa;
 // }
-
-const Tag = styled.span`
-  color: rgb(61, 118, 153);
-  margin: 0 5px;
-  word-break: break-word;
-`;
 
 const CreatorName = styled.span``;
