@@ -5,9 +5,11 @@ import { AlgoliaContext } from "@/contexts/AlgoliaContext";
 import { useQuery } from "@/utils/useQuery";
 import { Header } from "@/layouts/Header";
 import { WorkCard } from "@/components/WorkCard";
+import { MobileWorkCard } from "@/components/MobileWorkCard";
 import { TextField } from "@/components/TextField";
 import { Tag } from "@/components/Tag";
 import { HeroArea } from "@/components/HeroArea";
+import { DefaultDesign, MobileDesign } from "@/components/utils/Responsive";
 import works from "@/assets/images/works.jpg";
 
 interface WorksResponse {
@@ -105,15 +107,28 @@ export const WorksPage: FC = () => {
         ))}
       </Controller>
       <Container>
-        {data.map(({ productImage, creator, tags, title }) => (
-          <WorkCard
-            title={title}
-            productImage={productImage}
-            creator={creator}
-            tags={tags}
-            key={productImage}
-          />
-        ))}
+        <DefaultDesign>
+          {data.map(({ productImage, creator, tags, title }) => (
+            <WorkCard
+              title={title}
+              productImage={productImage}
+              creator={creator}
+              tags={tags}
+              key={productImage}
+            />
+          ))}
+        </DefaultDesign>
+        <MobileDesign>
+          {data.map(({ productImage, creator, tags, title }) => (
+            <MobileWorkCard
+              title={title}
+              productImage={productImage}
+              creator={creator}
+              tags={tags}
+              key={productImage}
+            />
+          ))}
+        </MobileDesign>
       </Container>
     </>
   );
