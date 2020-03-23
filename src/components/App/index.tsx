@@ -1,10 +1,13 @@
 import React, { FC } from "react";
+import algoliasearch from "algoliasearch/lite";
+
 import { ThemeProvider } from "@/theme/ThemeProvider";
 import { GlobalStyle } from "@/theme/GlobalStyle";
 import { createRouter } from "@/routes";
 import { TopPage } from "@/pages/TopPage";
 import { WorksPage } from "@/pages/WorksPage";
 import { CreatorsPage } from "@/pages/CreatorsPage";
+import { AlgoliaContextProvider } from "@/contexts/AlgoliaContext";
 
 export const routes = [
   {
@@ -30,10 +33,19 @@ export const routes = [
 const Router = createRouter({ routes });
 
 export const App: FC = () => {
+  const client = algoliasearch(
+    process.env.AlgoliaApplicationID || "",
+    process.env.AlgoliaSearchOnlyAPIKey || ""
+  );
+
+  const worksIndex = client.initIndex("works");
+
   return (
     <ThemeProvider themeName="default">
       <GlobalStyle />
-      {Router}
+      <AlgoliaContextProvider value={{ worksIndex }}>
+        {Router}
+      </AlgoliaContextProvider>
     </ThemeProvider>
   );
 };
