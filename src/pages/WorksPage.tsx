@@ -7,6 +7,7 @@ import { Header } from "@/layouts/Header";
 import { WorkCard } from "@/components/WorkCard";
 import { TextField } from "@/components/TextField";
 import { Tag } from "@/components/Tag";
+import { HeroArea } from "@/components/HeroArea";
 import works from "@/assets/images/works.jpg";
 
 interface WorksResponse {
@@ -87,9 +88,8 @@ export const WorksPage: FC = () => {
   return (
     <>
       <Header />
-      <HeroArea>
-        <h1>Works</h1>
-      </HeroArea>
+      <HeroArea text="Works" backgroundImage={works} />
+
       <Controller>
         <SearchLabel>検索</SearchLabel>
         <TextField
@@ -121,19 +121,6 @@ export const WorksPage: FC = () => {
 const Container = styled.div`
   width: 100%;
   padding: 50px calc((100vw - 260px * 6) / 2);
-`;
-
-const HeroArea = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-image: url(${works});
-  height: 500px;
-  h1 {
-    font-size: 120px;
-    color: #fff;
-    text-shadow: 2px 4px 3px rgba(0, 0, 0, 0.5);
-  }
 `;
 
 const Controller = styled.div`

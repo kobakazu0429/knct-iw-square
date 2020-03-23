@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { AlgoliaContext } from "@/contexts/AlgoliaContext";
 import { Header } from "@/layouts/Header";
 import { Creator } from "@/components/Creator";
+import { HeroArea } from "@/components/HeroArea";
 import creators from "@/assets/images/creators.jpg";
 
 interface CreatorsResponse {
@@ -28,9 +29,7 @@ export const CreatorsPage: FC = () => {
   return (
     <>
       <Header />
-      <HeroArea>
-        <h1>Creators</h1>
-      </HeroArea>
+      <HeroArea text="Creators" backgroundImage={creators} />
       <Container>
         {data.map(({ avatorUrl, name, skills }) => (
           <Creator
@@ -47,22 +46,9 @@ export const CreatorsPage: FC = () => {
 
 const Container = styled.div`
   width: 100%;
-  height: 600px;
+  height: auto;
   margin: 0 auto;
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
-`;
-
-const HeroArea = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-image: url(${creators});
-  height: 500px;
-  h1 {
-    font-size: 120px;
-    color: #fff;
-    text-shadow: 2px 4px 3px rgba(0, 0, 0, 0.5);
-  }
 `;
